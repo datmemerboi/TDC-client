@@ -1,0 +1,549 @@
+@font-face {
+  font-family: 'Proxima-Nova Regular';
+  src: url('/fonts/ProximaNova/ProximaNova-Regular.woff2') format('woff');
+}
+@font-face {
+  font-family: 'Proxima-Nova Semi';
+  src: url('/fonts/ProximaNova/ProximaNova-Semibold.woff2') format('woff');
+}
+@font-face {
+  font-family: 'Proxima-Nova Light';
+  src: url('/fonts/ProximaNova/ProximaNova-Light.woff2') format('woff');
+}
+@font-face {
+  font-family: 'Proxima-Nova Bold';
+  src: url('/fonts/ProximaNova/ProximaNova-Bold.woff2') format('woff');
+}
+// SAMPLE COLORS
+$tomato: #FF6347;
+$wheat: #F5DEB3;
+$bigBlueButton: #2471A3;
+$logoBlue: #0063A3;
+$cardGrey: #F8F8F8;
+$darkGrey: #DCDCDC;
+$smokeGrey: #F5F4F3;
+$grassLightGreen: #ABEA7B;
+$grassNeutralGreen: #8CCE5A;
+$lightYellow: #F1CA46;
+$pinkRed: #C31532;
+$fadedRed: #EC6D56;
+$fadedPink: #F1948A;
+$fadedBlue: #AFE5EF;
+$fadedAmber: #FCDD7F;
+
+// CONSTANTS
+$primaryBtnBGColor: $bigBlueButton;
+$primaryBtnHoverColor: $bigBlueButton;
+$acceptBtnBGColor: $grassNeutralGreen;
+$rejectBtnBGColor: $pinkRed;
+$navBarBGColor: $tomato;
+$inputBGColor: #F0F0F0;
+$bodyFontSize: 1.1em;
+$slightlyLargerFontSize: 1.15em;
+$hoverColor: white;
+$bannerColor: #B0B0B0;
+$cardBGColor: $cardGrey;
+$isTodayColor: $fadedRed;
+$dayHoverColor: $darkGrey;
+$disabledDayBGColor: $smokeGrey;
+$appointmentStripBGColor: $bigBlueButton;
+$availableBGColor: $grassNeutralGreen;
+$occupiedBGColor: $lightYellow;
+$busyBGColor: $pinkRed;
+$cancelledBGColor: $fadedPink;
+$scheduledBGColor: $grassLightGreen;
+$completedBGColor: $fadedBlue;
+$postponedBGColor: $fadedAmber;
+
+* {
+  font-family: "Proxima-Nova Regular", sans-serif;
+  .Reg { font-family: "Proxima-Nova Regular", sans-serif; }
+  .Bld { font-family: "Proxima-Nova Bold", sans-serif; }
+  .Semi { font-family: "Proxima-Nova Semi", sans-serif; }
+  .Lt { font-family: "Proxima-Nova Light", sans-serif; }
+}
+body {
+  font-size: $bodyFontSize;
+}
+div.root-container {
+  position: absolute; top: 0; left: 10vw;
+  width: 80vw; height: auto;
+}
+// ANCHOR LINKS
+a {
+  text-decoration: none;
+  color: inherit;
+  &.beauty {
+    color: $logoBlue;
+    text-decoration: underline;
+  }
+}
+// HORIZONTAL NAV BAR
+nav {
+  background-color: $navBarBGColor !important;
+  min-height: 7vh;
+  max-height: 10vh;
+  min-width: 100vw;
+  width: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  img.logo {
+    width: inherit; height: 7vh;
+    position: fixed; top: 0; left: 0;
+  }
+  img.down {
+    width: 1vw; height: 1vh;
+  }
+  div.nav-item-container {
+    position: relative;
+    left: 32vw;
+    padding: none;
+    height: inherit;
+    max-width: 35vw;
+
+    div {
+      display: inline-block;
+      padding-left: 3vmin; padding-right: 3vmin;
+      font-size: $slightlyLargerFontSize;
+      p:hover {
+        color: $hoverColor;
+      }
+    }
+  }
+}
+.below-nav {
+  max-width: 9vw; height: auto;
+  position: relative; top: 4vh;
+  border-radius: 0px 0px 10px 10px;
+  background-color: $navBarBGColor !important;
+
+  &.first-below-nav {
+    left: 35vw;
+  }
+  &.second-below-nav {
+    left: 44.75vw;
+  }
+  &.third-below-nav {
+    left: 54.8vw;
+  }
+  div {
+    padding-bottom: 1vh; padding-top: 1vh;
+    text-align: center;
+
+    p {
+      margin: 1vmin;
+    }
+  }
+}
+.chosen-one {
+  background-color: $tomato;
+  color: white;
+}
+// MODAL
+div.modal-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  div.modal-message {
+    background-color: #FFF;
+    width: 28vw;
+    min-height: 20vh;
+    position: relative;
+    top: 18vh;
+    left: 34vw;
+    border: none;
+    border-radius: 8px;
+    padding: 3vmin;
+  }
+}
+// CONTAINER
+div.container {
+  position: fixed;
+  top: 8vh;
+  left: 10vw;
+  width: 78vw;
+  height: auto;
+  padding: 1vw;
+
+  div.hold-together {
+    display: flex;
+    flex-direction: row;
+
+    div.left-column {
+      width: 47%;
+      height: inherit;
+      position: relative;
+      top: 0;
+      padding: 1vw;
+      display: flex;
+      flex-direction: column;
+    }
+    div.right-column {
+      width: 47%;
+      height: inherit;
+      position: relative;
+      top: 0;
+      left: 1em;
+      padding: 1vw;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  &.wide {
+    left: 0;
+    width: 100vw;
+  }
+}
+// OPENING BANNER
+div.banner {
+  position: relative;
+  top: 15vh;
+  text-align: center;
+  color: $bannerColor;
+}
+// SEARCH BAR PAGE CENTER
+div.center-of-page {
+  position: relative;
+  left: 26vw;
+  width: 40%;
+  table {
+    width: 80%;
+  }
+}
+div.sml-padded-div {
+  padding: 0.5em;
+}
+div.mid-padded-div {
+  padding-top: 1em;
+}
+div.output-card {
+  width: 20vw;
+  min-height: 10vh;
+  background-color: $cardBGColor !important;
+  border: solid 1px $darkGrey;
+  border-radius: 0.8vmin;
+  padding: 2vmin 5vmin 2vmin 5vmin;
+  margin: 2vmin 0vmin 2vmin 0vmin;
+}
+div.vertical-card {
+  width: 20vw;
+  max-width: 20vw;
+  min-height: 30vh;
+  height: auto;
+  background-color: $cardBGColor !important;
+  border: solid 1px $darkGrey;
+  border-radius: 0.6em;
+  padding: 2vmin 5vmin 2vmin 5vmin;
+
+  p {
+    word-wrap: break-word;
+  }
+  &.short {
+    min-height: 5vh;
+  }
+}
+// INPUT BAR & AREA
+.input-bar {
+  align-self: flex-start;
+  width: 23vw;
+  height: 5vh;
+  padding: 2vmin;
+  background-color: $inputBGColor;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  border-radius: 3px;
+}
+.small-input-bar {
+  width: 8vw;
+}
+.date-input-bar {
+  width: 10vw !important;
+}
+.slim-pad {
+  padding: 1vmin;
+}
+.input-select {
+  width: 16vw;
+  height: 8vh;
+  padding: 2vmin;
+  background-color: $inputBGColor;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  border-radius: 3px;
+}
+.input-area {
+  min-width: 30vw;
+  min-height: 16vh;
+  padding: 2vmin;
+  background-color: $inputBGColor;
+  border: none;
+  outline: none;
+  font-size: inherit;
+  resize: none;
+  border-radius: 3px;
+}
+// BUTTONS
+button.primary {
+  width: 8vw;
+  height: 5vh;
+  font-size: inherit;
+  font-weight: 100;
+  background-color: $primaryBtnBGColor !important;
+  border: solid 1px #000;
+  outline: none;
+  color: #FFF;
+}
+button.accept {
+  width: 8vw;
+  height: 7vh;
+  font-size: inherit;
+  font-weight: 600;
+  background-color: transparent;
+  border: solid 3px $acceptBtnBGColor;
+  color: $acceptBtnBGColor;
+  outline: none;
+}
+button.reject {
+  width: 8vw;
+  height: 7vh;
+  font-size: inherit;
+  font-weight: 600;
+  background-color: $rejectBtnBGColor;
+  border: solid 3px $rejectBtnBGColor;
+  color: #fff;
+  outline: none;
+}
+button.smaller {
+  width: 6vw;
+  height: 4vh;
+}
+div.scrollable {
+  overflow-y: auto;
+  width: 100%;
+  height: 80vh;
+  position: absolute;
+  padding: 0 0 3vmin 0;
+
+  &.short-scrollable {
+    height: 69vh !important;
+  }
+}
+// TABLES
+table {
+  border-collapse: collapse;
+  width: 100%;
+
+  th {
+    background-color: #F0F0F0;
+    padding: 0.7em;
+  }
+  th, td {
+    border-bottom: 1px solid #DDD;
+    text-align: center;
+  }
+  td {
+    padding: 0.5em;
+  }
+  tr {
+    &.head-row {
+      user-select: none;
+      background-color: #FFF;
+      &:hover {
+        background-color: #FFF;
+      }
+    }
+    &.regular-row {
+      &:hover {
+        background-color: #F0F0F0;
+      }
+      &:active {
+        background-color: #BABABA;
+      }
+    }
+  }
+  td.thin-col {
+    width: 1.5vw;
+  }
+  td.wide-col-1 {
+    width: 30%;
+  }
+  input.small-input-bar {
+    width: 5vw;
+    padding: 0 1vmin 0 1vmin;
+  }
+}
+// CALENDAR
+div.mode-calendar-container {
+  position: relative;
+  left: 20vw;
+  display: flex;
+  flex-direction: column;
+}
+div.mode-container {
+  display: block;
+  width: 99%;
+  position: relative;
+}
+div.calendar-container {
+  position: relative
+  width: 80vw;
+}
+div.week-days-header {
+  display: flex;
+  justify-content: space-evenly;
+
+  .heading {
+    display: block;
+    font-weight: 600;
+    user-select: none;
+    width: 8vw;
+    text-align: center;
+  }
+}
+div.days-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .week {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    div.day {
+      display: block;
+      width: 11vw;
+      height: 11vh;
+      text-align: center;
+
+      &:hover {
+        background-color: $dayHoverColor;
+      }
+      &.disabled {
+        background-color: $disabledDayBGColor;
+      }
+      .is-today {
+        color: $isTodayColor;
+        font-weight: 600;
+      }
+      .appointment-strip {
+        color: white;
+        padding: 0.1vmin 0 0.1vmin 0;
+        margin: 1vmin 0vmin 1vmin 0vmin;
+
+        &.busy {
+          background-color: $busyBGColor;
+        }
+        &.occupied {
+          background-color: $occupiedBGColor;
+        }
+        &.available {
+          background-color: $availableBGColor;
+        }
+      }
+    }
+  }
+}
+div.day-scrollable-container {
+  overflow-y: auto;
+  width: 98%;
+  height: 80vh;
+}
+div.hour {
+  text-align: left;
+  min-height: 9vh;
+  border-bottom: solid 0.1px $darkGrey;
+  padding: 1vmin;
+
+  &.disabled {
+    border: none;
+    min-height: 3vh;
+    background-color: $darkGrey;
+  }
+  .appointment-strip {
+    padding: 1vmin;
+    display: block;
+
+    div.hold-together {
+      display: flex;
+      justify-content: space-evenly;
+    }
+    &.scheduled {
+      background-color: $scheduledBGColor;
+    }
+    &.completed {
+      background-color: $completedBGColor;
+    }
+    &.postponed {
+      background-color: $postponedBGColor;
+    }
+    &.cancelled {
+      background-color: $cancelledBGColor;
+    }
+  }
+}
+// APPOINTMENT
+div.appointment-container {
+  padding: 1vmin 0 1vmin 0;
+}
+// NEW APPOINTMENT
+div.new-appointment-container {
+  width: 80%;
+  padding: 1vmin;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+// META CONTAINER
+div.meta-container {
+  position: absolute;
+  left: 0;
+  border: solid 1px $darkGrey;
+  width: 20vw;
+  height: inherit;
+  display: block;
+
+  &.right {
+    right: 0;
+    left: auto;
+  }
+}
+// META DIV
+div.meta-div {
+  background-color: purple;
+}
+.reject-message {
+  color: $pinkRed;
+}
+// TEETH ARRANGEMENT
+div.teeth-container {
+  display: flex;
+  flex-direction: column;
+
+  div.teeth-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    div.teeth {
+      margin: 0.2vmin;
+      display: block;
+      min-width: 2vw;
+      text-align: center;
+      border: solid 1px black;
+
+      &.selected {
+        background-color: $bigBlueButton !important;
+        color: white;
+      }
+    }
+  }
+}

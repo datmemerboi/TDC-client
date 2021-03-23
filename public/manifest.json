@@ -1,0 +1,6 @@
+{
+  "short_name": "tdc-client",
+  "name": "Client side React App for TDC",
+  "start_url": ".",
+  "display": "standalone",
+}
