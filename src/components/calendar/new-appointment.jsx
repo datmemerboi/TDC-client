@@ -10,7 +10,7 @@ export default class NewAppointment extends React.Component {
     this.everyFifteenMins = Array.from({ length: 4 }, (_,i) => {
       let d = new Date((this.hourObj.start_of_hour*1000)+(i*900000));
       return {
-        words: d.toLocaleString("default", { hour: "numeric", minute: "numeric" }),
+        words: d.toLocaleString("en-US", { hour: "numeric", minute: "numeric" }),
         value: d.getTime()
       };
     });
@@ -76,7 +76,7 @@ export default class NewAppointment extends React.Component {
         <div>
           <select
             className="input-select"
-            style={{ width: "7vw" }}
+            style={{ width: "8vw" }}
             onInput={this.timeInputHandler}
           >
             {

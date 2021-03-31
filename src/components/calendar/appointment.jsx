@@ -37,7 +37,7 @@ class EditMode extends React.Component {
     this.everyFifteenMins = Array.from({ length: 4 }, (_,i) => {
       let d = new Date((this.hourObj.start_of_hour*1000)+(i*900000));
       return {
-        words: d.toLocaleString("default", { hour: "numeric", minute: "numeric" }),
+        words: d.toLocaleString("en-US", { hour: "numeric", minute: "numeric" }),
         value: d.getTime()
       };
     });
@@ -103,6 +103,18 @@ class EditMode extends React.Component {
         onClick={(e) => e.stopPropagation()}
       >
         <div>
+          <select
+            className="input-select"
+            style={{ width: "8vw" }}
+            onInput={this.timeInputHandler}
+            defaultValue={this.state.time}
+          >
+            {
+              this.everyFifteenMins.map((opt, i) => <option key={i} value={opt.value}>{opt.words}</option> )
+            }
+          </select>
+        </div>
+        <div>
           <label>Patient ID</label>&nbsp;&nbsp;
           <input
             type="text"
@@ -119,18 +131,6 @@ class EditMode extends React.Component {
           >
             {
               this.doctors.map((doc,i) => <option key={i} value={doc}>{doc}</option>)
-            }
-          </select>
-        </div>
-        <div>
-          <select
-            className="input-select"
-            style={{ width: "7vw" }}
-            onInput={this.timeInputHandler}
-            defaultValue={this.state.time}
-          >
-            {
-              this.everyFifteenMins.map((opt, i) => <option key={i} value={opt.value}>{opt.words}</option> )
             }
           </select>
         </div>
