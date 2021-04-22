@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "tdc-client",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -15,6 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "local": "REACT_APP_ENVIRONMENT=local npm start",
+    "local_windows": "set REACT_APP_ENVIRONMENT=local&&npm start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
