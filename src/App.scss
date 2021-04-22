@@ -1,19 +1,3 @@
-@font-face {
-  font-family: 'Proxima-Nova Regular';
-  src: url('/fonts/ProximaNova/ProximaNova-Regular.woff2') format('woff');
-}
-@font-face {
-  font-family: 'Proxima-Nova Semi';
-  src: url('/fonts/ProximaNova/ProximaNova-Semibold.woff2') format('woff');
-}
-@font-face {
-  font-family: 'Proxima-Nova Light';
-  src: url('/fonts/ProximaNova/ProximaNova-Light.woff2') format('woff');
-}
-@font-face {
-  font-family: 'Proxima-Nova Bold';
-  src: url('/fonts/ProximaNova/ProximaNova-Bold.woff2') format('woff');
-}
 // SAMPLE COLORS
 $tomato: #FF6347;
 $wheat: #F5DEB3;
@@ -56,11 +40,11 @@ $completedBGColor: $fadedBlue;
 $postponedBGColor: $fadedAmber;
 
 * {
-  font-family: "Proxima-Nova Regular", sans-serif;
-  .Reg { font-family: "Proxima-Nova Regular", sans-serif; }
-  .Bld { font-family: "Proxima-Nova Bold", sans-serif; }
-  .Semi { font-family: "Proxima-Nova Semi", sans-serif; }
-  .Lt { font-family: "Proxima-Nova Light", sans-serif; }
+  font-family: "Proxima-Nova";
+  .Reg { font-family: "Proxima-Nova"; }
+  .Bld { font-family: "Proxima-Nova Bold"; }
+  .Semi { font-family: "Proxima-Nova Semi"; }
+  .Lt { font-family: "Proxima-Nova Light"; }
 }
 body {
   font-size: $bodyFontSize;
