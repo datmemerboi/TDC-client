@@ -1,6 +1,6 @@
 import React from 'react';
 import { everyFifteenMinsOfHour } from '../common';
-const config = require('../../config.json')[process.env.NODE_ENV ?? "dev"];
+import config from '../../config.json';
 
 function ViewMode({ app, returnToParent }) {
   const currentStatus = config.STATUSES[parseInt(app.status)];
@@ -10,18 +10,30 @@ function ViewMode({ app, returnToParent }) {
       onClick={returnToParent}
     >
       <div>
-        {new Date(app.appointment_date).toLocaleString("en-US", { hour: "numeric", minute: "numeric", hour12: true})}
+        {
+          new Date(app.appointment_date).toLocaleString("en-US", {
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true
+          })
+        }
       </div>
       <div className="hold-together">
         <div>
-          {app.patient.name}
+          {
+            app.patient && app.patient.name
+            ?
+              <strong>{app.patient.name}</strong>
+            :
+              <React.Fragment><em>Unknown Patient</em></React.Fragment>
+          }
         </div>
         <div>
           Doctor: {app.doctor}
         </div>
         <div>
-          Appointment ID: <b>{app.app_id}</b><br/>
-          Status: <b>{currentStatus}</b>
+          Appointment ID: <strong>{app.app_id}</strong><br/>
+          Status: <strong>{currentStatus}</strong>
         </div>
       </div>
     </div>
@@ -35,7 +47,7 @@ class EditMode extends React.Component {
     this.doctors = config.DOCTORS;
     this.statuses = config.STATUSES;
     this.everyFifteenMins = Array.from({ length: 4 }, (_,i) => {
-      let d = new Date((this.hourObj.start_of_hour*1000)+(i*900000));
+      let d = new Date((this.hourObj.start_of_hour * 1000) + (i * 900000));
       return {
         words: d.toLocaleString("en-US", { hour: "numeric", minute: "numeric" }),
         value: d.getTime()
@@ -45,7 +57,7 @@ class EditMode extends React.Component {
     this.state = {
       pid: props.app.p_id,
       doctor: props.app.doctor,
-      time: this.everyFifteenMins.filter(m => m.value === new Date(props.app.appointment_date).getTime())[0]["value"],
+      time: this.everyFifteenMins.filter(m => m.value === new Date(props.app.appointment_date).getTime())[0]['value'],
       status: props.app.status
     };
 
