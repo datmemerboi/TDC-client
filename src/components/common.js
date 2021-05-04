@@ -125,19 +125,19 @@ export const metaFromStats = (stats) => {
       return <p>No stats to display</p>;
     }
     if (doctorStats.length) {
-      doctorStats = doctorStats.map((s,i) => <p key={i}><i>{s.name}</i>: {s.count} appointment(s) in this month</p>);
+      doctorStats = doctorStats.map((s,i) => <p key={i}><em>{s.name}</em>: {s.count} appointment(s) in this month</p>);
     }
     if (statusStats.length) {
       statusStats = statusStats.map((s,i) => {
         switch (s.value) {
           case 0:
-            return <p key={i}>Cancelled appointments: <b>{s.count}</b></p>;
+            return <p key={i}>Cancelled appointments: <strong>{s.count}</strong></p>;
           case 1:
-            return <p key={i}>Scheduled appointments: <b>{s.count}</b></p>;
+            return <p key={i}>Scheduled appointments: <strong>{s.count}</strong></p>;
           case 2:
-            return <p key={i}>Completed appointments: <b>{s.count}</b></p>;
+            return <p key={i}>Completed appointments: <strong>{s.count}</strong></p>;
           case 3:
-            return <p key={i}>Postponed appointments: <b>{s.count}</b></p>;
+            return <p key={i}>Postponed appointments: <strong>{s.count}</strong></p>;
         }
       });
     }
