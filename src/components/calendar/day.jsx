@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import Hour from './hour';
 import { hourObjArrayFromDayObj, filterAppointmentsForDay } from '../common.js';
-const config = require('../../config')[process.env.NODE_ENV ?? "dev"];
 
 export default function Day({ dayObj, appointments }) {
   var hourObjArray = hourObjArrayFromDayObj(dayObj);
@@ -22,7 +21,15 @@ export default function Day({ dayObj, appointments }) {
   return (
     <div className="day-scrollable-container">
       <div className="day-details">
-        <b>{new Date(dayObj.year, dayObj.month, dayObj.date).toLocaleString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</b>
+        <strong>
+          {
+            new Date(dayObj.year, dayObj.month, dayObj.date).toLocaleString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric"
+            })
+          }
+        </strong>
       </div>
       <div className="day-hours">
         {hours}

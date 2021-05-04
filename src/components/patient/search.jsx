@@ -1,6 +1,6 @@
 import React from 'react';
 import { trFromPatList } from'../common.js';
-const config = require('../../config.json')[process.env.NODE_ENV];
+import config from '../../config.json';
 
 export default class PatientSearch extends React.Component {
   constructor(props) {

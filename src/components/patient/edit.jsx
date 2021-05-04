@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../modal';
-const config = require('../../config.json')[process.env.NODE_ENV];
+import config from '../../config.json';
 
 export default class PatientEdit extends React.Component {
   constructor(props) {

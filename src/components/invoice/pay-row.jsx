@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-const config = require('../../config')[process.env.NODE_ENV ?? "dev"];
+import config from '../../config.json';
 
 export default class Row extends React.Component {
   constructor(props) {

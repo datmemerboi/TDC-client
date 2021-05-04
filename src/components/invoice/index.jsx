@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Card from './card';
-const config = require('../../config')[process.env.NODE_ENV ?? "dev"];
+import config from '../../config.json';
 
 export default function InvoiceIndex() {
   const [invoices, setInvoices] = React.useState(null);

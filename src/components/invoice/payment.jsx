@@ -1,7 +1,7 @@
 import React from 'react';
 import Row from './pay-row';
 import Modal from '../modal';
-const config = require('../../config')[process.env.NODE_ENV ?? "dev"];
+import config from '../../config.json';
 
 export default class Payment extends React.Component {
   constructor(props) {

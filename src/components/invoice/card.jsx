@@ -8,23 +8,23 @@ export default function Card({ obj, key, returnToParent }) {
       {
         obj?.doctor
         ?
-          <p><b>Doctor:</b> {obj.doctor}</p>
+          <p><strong>Doctor:</strong> {obj.doctor}</p>
         :
           null
       }
       {
         obj?.procedure_done
         ?
-          <p><b>Procedure:</b> {obj.procedure_done}</p>
+          <p><strong>Procedure:</strong> {obj.procedure_done}</p>
         :
           null
       }
-      {<p><b>Generated on:</b> {new Date(obj.created_at).toLocaleDateString('default', { year: 'numeric', month: 'short', day: 'numeric' })}</p>}
+      {<p><strong>Generated on:</strong> {new Date(obj.created_at).toLocaleDateString('default', { year: 'numeric', month: 'short', day: 'numeric' })}</p>}
       <a
         className="beauty"
         onClick={() => returnToParent(obj.inv_id)}
       >
-        <i>Print Invoice</i>
+        <em>Print Invoice</em>
       </a>
     </div>
   )

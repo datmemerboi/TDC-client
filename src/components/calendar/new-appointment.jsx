@@ -1,5 +1,5 @@
 import React from 'react';
-const config = require('../../config')[process.env.NODE_ENV ?? "dev"];
+import config from '../../config.json';
 
 export default class NewAppointment extends React.Component {
   constructor(props) {

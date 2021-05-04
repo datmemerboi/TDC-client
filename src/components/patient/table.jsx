@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { trFromPatList } from '../common';
-const config = require('../../config.json')[process.env.NODE_ENV];
+import config from '../../config.json';
 
 export default function PatientsTable() {
   const [tableBodyRows, setTableBodyRows] = useState([]);

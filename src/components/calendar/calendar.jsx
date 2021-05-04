@@ -3,7 +3,7 @@ import Month from './month';
 import Day from './day';
 import Mode from './mode';
 import { metaFromStats } from '../common';
-const config = require('../../config.json')[process.env.NODE_ENV];
+import config from '../../config.json';
 
 export default function Calendar() {
   const now = new Date();

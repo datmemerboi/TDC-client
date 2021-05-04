@@ -2,7 +2,7 @@ import React from 'react';
 import Appointment from './appointment';
 import NewAppointment from './new-appointment';
 import { filterAppointmentsForHour } from '../common.js';
-const config = require('../../config.json')[process.env.NODE_ENV ?? "dev"];
+import config from '../../config.json';
 
 export default function Hour({ hourObj, appointments }) {
   const [showNewAppointment, setShowNewAppointment] = React.useState(false);
@@ -20,7 +20,7 @@ export default function Hour({ hourObj, appointments }) {
     }
     return (
       <div className="hour" onClick={clickHandler}>
-        <b>{hourObj.words}</b>
+        <strong>{hourObj.words}</strong>
         <div className="appointment-container">
           {
             showNewAppointment

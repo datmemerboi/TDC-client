@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from './card';
-const config = require('../../config')[process.env.NODE_ENV];
+import config from '../../config.json';
 
 export default class TreatmentSearch extends React.Component {
   constructor(props) {
@@ -141,7 +141,7 @@ export default class TreatmentSearch extends React.Component {
           this.state.invoiceList.length > 0
           ?
             <div className="meta-container right">
-              <p>Invoice for <b>only 3</b> treatments allowed</p>
+              <p>Invoice for <strong>only 3</strong> treatments allowed</p>
               <ul>
                 {
                   this.state.invoiceList.map(tid => <li>{tid}</li>)

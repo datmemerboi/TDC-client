@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Modal from '../modal';
 import { arrangementFromTeethNumbering } from '../common';
-const config = require('../../config')[process.env.NODE_ENV];
+import config from '../../config.json';
 
 export default class TreatmentForm extends React.Component {
   constructor(props) {
@@ -185,7 +185,7 @@ export default class TreatmentForm extends React.Component {
         <div className="hold-together">
           <div className="left-column">
             <div style={{ paddingTop: "2vmin", paddingBottom: "2vmin"}}>
-              <label><b>Patient ID</b></label>&nbsp;&nbsp;&nbsp;
+              <label><strong>Patient ID</strong></label>&nbsp;&nbsp;&nbsp;
               <input
                 type="text"
                 className="input-bar small-input-bar"
@@ -193,7 +193,7 @@ export default class TreatmentForm extends React.Component {
               />
             </div>
             <div>
-              <label><b>Procedure Done</b></label><br/>
+              <label><strong>Procedure Done</strong></label><br/>
               <input
                 type="text"
                 className="input-bar"
@@ -226,7 +226,7 @@ export default class TreatmentForm extends React.Component {
               }
             </div>
             <div style={{ paddingTop: "2vmin", paddingBottom: "2vmin"}}>
-              <label><b>Treatment Date</b></label>&nbsp;&nbsp;&nbsp;
+              <label><strong>Treatment Date</strong></label>&nbsp;&nbsp;&nbsp;
               <input
                 type="date"
                 className="input-bar"
@@ -235,7 +235,7 @@ export default class TreatmentForm extends React.Component {
               />
             </div>
             <div>
-              <label><b>Attended by</b></label>&nbsp;&nbsp;&nbsp;
+              <label><strong>Attended by</strong></label>&nbsp;&nbsp;&nbsp;
               <select
                 className="input-select"
                 onInput={this.doctorHandler}
