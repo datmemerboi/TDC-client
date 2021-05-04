@@ -20,6 +20,8 @@ If the TDC API is running locally and the front end is to run locally as well, u
 npm i && npm run local
 ```
 
+**Note:** If you are using Windows, you can run the command `npm run local_windows`.
+
 ### Running API remotely
 To install all packages and run the server, use the command:
 
