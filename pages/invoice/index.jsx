@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from 'react';
 
+import Card from '../../components/card';
 import NavBar from '../../components/navbar';
-import InvoiceCard from './card';
 import api from '../../utils/api';
 
 export default function InvoiceIndex() {
