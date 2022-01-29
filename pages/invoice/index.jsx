@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect } from 'react';
 
-import Card from '../../components/card';
+import { InvoiceCard } from '../../components/card';
 import NavBar from '../../components/navbar';
 import api from '../../utils/api';
 
@@ -8,7 +8,7 @@ export default function InvoiceIndex() {
   const [invoiceList, setInvoiceList] = useState(null);
   const printRequest = async (invid) => {
     let { data } = await api.printInvoice(invid);
-    window.open(data.file);
+    window.open(`/view?path=${data.file}`);
   };
   useEffect(async () => {
     let { data } = await api.fetchAllInvoices();
