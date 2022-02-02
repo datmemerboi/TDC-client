@@ -4,14 +4,14 @@ import NavBar from '../../components/navbar';
 import api from '../../utils/api';
 import { tableRowFromPatientList } from '../../components/common';
 
-export default function PatientsTable() {
+export default function PatientTable() {
   const [tableRows, setTableRows] = useState([]);
 
   useEffect(async () => {
     if (!tableRows.length) {
       let { data } = await api.fetchAllPatients();
-      if (data) {
-        setTableRows(data);
+      if (data && data.docs && data.docs.length) {
+        setTableRows(data.docs);
       }
     }
   }, []);
@@ -33,15 +33,10 @@ export default function PatientsTable() {
                 <th>Medical History</th>
               </tr>
             </thead>
-            <tbody>
-              {tableRows.length > 0 ? (
-                tableRowFromPatientList(tableRows)
-              ) : (
-                <p style={{ textAlign: 'center' }}>No patients found.</p>
-              )}
-            </tbody>
+            <tbody>{tableRows.length > 0 ? tableRowFromPatientList(tableRows) : null}</tbody>
           </table>
         </div>
+        {tableRows.length ? null : <p style={{ textAlign: 'center' }}>No patients found.</p>}
       </div>
     </Fragment>
   );
