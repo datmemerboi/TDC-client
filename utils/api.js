@@ -1,5 +1,3 @@
-import debounce from 'lodash.debounce';
-
 import config from '../config.json';
 
 async function fetchAllPatients() {
@@ -138,6 +136,96 @@ async function searchPatient(term, type) {
   }
 }
 
+async function getPatientHistory(pid) {
+  let url,
+    res,
+    data = {},
+    error = {};
+  try {
+    url = config.API_URL + `/api/treatment/history/${pid}?quick=true`;
+    res = await fetch(url);
+    if (res.status === 200) {
+      data = await res.json();
+    } else {
+      error = res;
+    }
+  } catch (e) {
+    error = e;
+  } finally {
+    return { data, error };
+  }
+}
+
+async function createTreatment(obj) {
+  let url,
+    res,
+    data = {},
+    error = {};
+  try {
+    url = config.API_URL + '/api/treatment/new/';
+    let options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(obj)
+    };
+    res = await fetch(url, options);
+    switch (res.status) {
+      case 201: {
+        data = await res.json();
+        break;
+      }
+      case 400: {
+        error = {
+          status: 400,
+          message: 'Patient ID, Procedure, Date and Doctor fields cannot be empty'
+        };
+        break;
+      }
+      case 500: {
+        error = { status: 500, message: 'Server Error occured! Try again.' };
+        break;
+      }
+      default: {
+        error = { status: res.status, message: 'Some error occured. Try again.' };
+        break;
+      }
+    }
+  } catch (e) {
+    error = e;
+  } finally {
+    return { data, error };
+  }
+}
+
+async function searchTreatment(keyword, type) {
+  let url,
+    res,
+    data = {},
+    error = {};
+  try {
+    url = config.API_URL + '/api/treatment/';
+    if (type === 'PID') {
+      url += `patient/${keyword}`;
+    } else if (type === 'TID') {
+      url += `get/${keyword}`;
+    } else {
+      throw { code: 400, message: 'Invalid search type' };
+    }
+    res = await fetch(url);
+    if (res.status === 200) {
+      data = await res.json();
+    } else {
+      error = res;
+    }
+  } catch (e) {
+    error = e;
+  } finally {
+    return { data, error };
+  }
+}
+
 async function fetchAllInvoices() {
   let url,
     res,
@@ -218,6 +306,34 @@ async function getTreatmentData(tid) {
   }
 }
 
+async function checkCompatibility(list) {
+  let url,
+    res,
+    data = {},
+    error = {};
+  try {
+    url = config.API_URL + '/api/treatment/compatibility';
+    let options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ list })
+    };
+
+    res = await fetch(url, options);
+    if (res.status === 200) {
+      data = await res.json();
+    } else {
+      error = res;
+    }
+  } catch (e) {
+    error = e;
+  } finally {
+    return { data, error };
+  }
+}
+
 async function createInvoice(invoiceObj) {
   let url,
     res,
@@ -251,9 +367,13 @@ export default {
   updatePatient,
   getPatient,
   searchPatient,
+  getPatientHistory,
+  createTreatment,
+  searchTreatment,
   fetchAllInvoices,
   printInvoice,
   fetchAppointmentsByDate,
   getTreatmentData,
-  createInvoice
+  createInvoice,
+  checkCompatibility
 };
