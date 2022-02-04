@@ -287,6 +287,18 @@ button.smaller {
   width: 6vw;
   height: 4vh;
 }
+button.proceed {
+  min-width: 3vw;
+  min-height: 4vh;
+  background-color: #2471a3;
+  color: white;
+  border: solid 1px black;
+  border-radius: 10px;
+}
+button.proceed.disabled {
+  background-color: #f5f4f3;
+  color: black;
+}
 div.scrollable {
   overflow-y: auto;
   width: 100%;
@@ -305,8 +317,7 @@ table th {
   background-color: #f0f0f0;
   padding: 0.7em;
 }
-table th,
-table td {
+table th, table td {
   border-bottom: 1px solid #ddd;
   text-align: center;
 }
@@ -476,11 +487,14 @@ div.teeth-container div.teeth-row {
   justify-content: space-between;
 }
 div.teeth-container div.teeth-row div.teeth {
-  margin: 0.2vmin;
-  display: block;
+  margin: 0.25vmin;
+  display: flex;
   min-width: 2vw;
-  text-align: center;
+  min-height: 5vh;
+  justify-content: center;
+  align-items: center;
   border: solid 1px black;
+  border-radius: 1vmin;
 }
 div.teeth-container div.teeth-row div.teeth.selected {
   background-color: #2471a3 !important;
