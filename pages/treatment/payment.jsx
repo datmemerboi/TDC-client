@@ -1,51 +1,76 @@
-import { Component, Fragment } from 'react';
+import { Component, Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import api from '../../utils/api';
 import config from '../../config.json';
+import { PayRow } from '../../components/payment';
 
-export default class Payment extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      treatments: [],
-      paymentMethod: config.PAYMENT_METHODS[0],
-      paymentID: null,
-      subTotal: 0,
-      discount: 0,
-      grandTotal: 0,
-      modalMessage: '',
-      triggers: {
-        modal: false
-      }
-    };
+export default function TreatmentPayment() {
+  const router = useRouter();
+  const initialDataFetch = async () => {
+    if (router.query?.list) {
+      let docs = await Promise.all(router.query.list.split('-').map(api.getTreatmentData));
+      return docs.map(({ data }) => data);
+    }
+    return [];
+  };
 
-    this.discoutHandler = this.discoutHandler.bind(this);
-    this.paymentMethodHandler = this.paymentMethodHandler.bind(this);
-    this.paymentIDHandler = this.paymentIDHandler.bind(this);
-  }
+  const [treatments, setTreatments] = useState([
+    {
+      procedure_done: 'Filling',
+      teeth_number: [],
+      remarks: '',
+      p_id: 'PAT0013',
+      treatment_date: '2018-09-14T00:00:00.000Z',
+      doctor: 'Dr. Gayathri',
+      t_id: 'TRT0017',
+      created_at: '2021-06-29T06:26:13.076Z',
+      name: 'Adhithya',
+      qty: 1,
+      cost: 1,
+      total: 1
+    }
+  ]);
+  // const [payment, setPayment] = useState({ method: config.PAYMENT_METHODS[0], id: null });
+  const [total, setTotal] = useState({
+    sub_total: 0,
+    grand_total: 0,
+    discount: 0
+  });
 
-  discoutHandler = (e) => {
-    if (isFinite(parseFloat(e.target.value))) {
-      this.setState({ discount: parseFloat(e.target.value) });
+  useEffect(async () => {
+    if (treatments.length === 0) {
+      let data = await initialDataFetch();
+      // setTreatments(data);
+      /**
+       *
+       * Setting state within useEffect throws Infinite re-renders error!
+       *
+       */
+      console.log(JSON.stringify(data, null, 1));
+    }
+  }, [total]);
+
+  const handleInput = (e) => {
+    let { name, value } = e.target;
+    if (name === 'discount') {
+      value = parseFloat(value);
     }
   };
 
-  paymentMethodHandler = (e) => {
-    this.setState({ paymentMethod: e.target.value });
+  const updatePriceOfTreatment = (returned) => {
+    let index = treatments.indexOf(treatments.find((t) => t.t_id === returned.t_id));
+
+    let updatedTreatments = treatments;
+    updatedTreatments.splice(index, 1, returned);
+    setTreatments(updatedTreatments);
+
+    let computedSubTotal = treatments.reduce((acc, t) => acc + t.total || 0, 0);
+    setTotal({ ...total, sub_total: computedSubTotal });
   };
-  paymentIDHandler = (e) => {
-    this.setState({ paymentID: e.target.value });
-  };
-  componentDidMount = async () => {
-    const router = useRouter(); // useRouter hook will not work in class component
-    if (router.query?.invoices) {
-      let treatmentData = await Promise.all(router.query.invoices.map(api.getTreatmentData));
-      this.setState({ treatments: treatmentData });
-    }
-  };
-  render() {
-    return (
+
+  return (
+    <Fragment>
       <div className="container">
         <h3>NEW INVOICE</h3>
         <table>
@@ -58,50 +83,13 @@ export default class Payment extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.treatments.length
-              ? this.state.treatments.map((obj) => (
-                  <Row tid={obj.t_id} treatmentObj={obj} returnToParent={this.getTreatmentCost} />
-                ))
-              : null}
+            {treatments.map((t, i) => (
+              <tr>{t.procedure_done}</tr>
+            ))}
           </tbody>
         </table>
-        <div style={{ position: 'absolute', right: '0' }}>
-          <p>Sub Total: {this.state.subTotal.toFixed(2)}</p>
-          <label>Discount (%)</label>&nbsp;&nbsp;&nbsp;&nbsp;
-          <input
-            type="number"
-            min={0}
-            className="input-bar small-input-bar"
-            style={{ width: '4vw' }}
-            onInput={this.discountHandler}
-          />
-          <p>Grand Total: {this.state.grandTotal.toFixed(2)}</p>
-        </div>
-        <div>
-          <h4>Payment Details</h4>
-          <label>Payment method</label>&nbsp;&nbsp;&nbsp;&nbsp;
-          <select
-            className="input-select"
-            style={{ width: '8vw' }}
-            onInput={this.paymentMethodHandler}
-            defaultValue={this.state.paymentMethod}
-          >
-            {config.PAYMENT_METHODS.map((method) => (
-              <option value={method}>{method}</option>
-            ))}
-          </select>
-          <br />
-          <br />
-          <label>Payment ID (optional)</label>&nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="text" className="input-bar" onInput={this.paymentIDHandler} />
-        </div>
-        <br />
-        <div>
-          <button onClick={this.submitHandler} className="primary">
-            SUBMIT
-          </button>
-        </div>
+        <p>Sub total: {total.sub_total}</p>
       </div>
-    );
-  }
+    </Fragment>
+  );
 }

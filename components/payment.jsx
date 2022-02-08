@@ -1,10 +1,12 @@
 import { Fragment, useState, useEffect } from 'react';
+import Link from 'next/link';
 import dayjs from 'dayjs';
 
 import api from '../utils/api';
 
 export function PaySlip({ list }) {
   const [compatible, setCompatible] = useState(false);
+  let url = `/treatment/payment?list=${list.length ? list.join('-') : ''}`;
 
   useEffect(async () => {
     let { data } = await api.checkCompatibility(list); // Check compatibility
@@ -40,7 +42,11 @@ export function PaySlip({ list }) {
               padding: '1vmin'
             }}
           >
-            {compatible && <button className="proceed">Payment &#x2192;</button>}
+            {compatible && (
+              <Link href={url}>
+                <button className="proceed">Payment &#x2192;</button>
+              </Link>
+            )}
           </div>
         </div>
       </Fragment>
@@ -52,55 +58,63 @@ export function PaySlip({ list }) {
 export function PayRow({ data, returnToParent }) {
   let [priceData, setPriceData] = useState({ cost: 1, qty: 1, total: 1 });
 
-  useEffect(() => {
-    console.log(priceData);
-    returnToParent({ ...priceData, total: priceData.cost * priceData.qty, t_id: data.t_id });
-  }, [priceData.cost, priceData.qty]);
+  useEffect(
+    setPriceData({
+      ...priceData,
+      total: priceData.cost * priceData.qty
+    }),
+    [priceData.cost, priceData.qty]
+  );
+
+  // useEffect(() => returnToParent({ ...data, ...priceData }), [priceData.total]);
 
   const handleInput = (e) => {
     let { name, value } = e.target;
-    if (!isNaN(value) && !isFinite(value)) {
+    if (!isNaN(value) && isFinite(value)) {
       value = name === 'qty' ? parseInt(value) : parseFloat(value);
       setPriceData({ ...priceData, [name]: value });
     }
   };
 
-  return (
-    <Fragment>
-      <tr>
-        <td className="wide-col-1">
-          <span>{data.procedure_done}</span>
-          <br />
-          <span>{dayjs(data.treatment_date).format('D MMM YYYY')}</span>
-          <br />
-          {data?.teeth_num && data.teeth_num?.length ? (
-            <span>{data.teeth_num.join(',')}</span>
-          ) : null}
-        </td>
-        <td>
-          <input
-            type="number"
-            className="input-bar small-input-bar"
-            min={1}
-            name="cost"
-            value={priceData.cost}
-            onInput={handleInput}
-          />
-        </td>
-        <td className="thin-col">
-          <input
-            type="number"
-            className="input-bar small-input-bar"
-            min={0}
-            style={{ width: '2vw' }}
-            name="qty"
-            onInput={handleInput}
-          />
-        </td>
-        <td>
-          <span>{priceData.total}</span>
-        </td>
-      </tr>
-    </Fragment>
-  );
+  if (!data.procedure_done || !data.treatment_date) {
+    return <tr />;
+  } else {
+    return (
+      <Fragment>
+        <tr>
+          <td className="wide-col-1">
+            <span>{data.procedure_done}</span>
+            <br />
+            <span>{dayjs(data.treatment_date).format('D MMM YYYY')}</span>
+            <br />
+            {data?.teeth_num && data.teeth_num?.length ? (
+              <span>{data.teeth_num.join(',')}</span>
+            ) : null}
+          </td>
+          <td>
+            <input
+              type="number"
+              className="input-bar small-input-bar"
+              min={1}
+              name="cost"
+              value={priceData.cost}
+              onInput={handleInput}
+            />
+          </td>
+          <td className="thin-col">
+            <input
+              type="number"
+              className="input-bar small-input-bar"
+              min={0}
+              style={{ width: '2vw' }}
+              name="qty"
+              value={priceData.qty}
+              onInput={handleInput}
+            />
+          </td>
+          <td>{priceData.total}</td>
+        </tr>
+      </Fragment>
+    );
+  }
 }
