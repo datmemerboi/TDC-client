@@ -349,10 +349,19 @@ async function createInvoice(invoiceObj) {
     };
     url = config.API_URL + `/api/invoice/new/`;
     res = await fetch(url, options);
-    if (res.status === 201) {
-      data = await res.json();
-    } else {
-      error = res;
+    switch (res.status) {
+      case 201: {
+        data = await res.json();
+        break;
+      }
+      case 500: {
+        error = { status: 500, message: 'Server Error occured! Try again.' };
+        break;
+      }
+      default: {
+        error = { status: res.status, message: 'Some error occured. Try again.' };
+        break;
+      }
     }
   } catch (e) {
     error = e;
