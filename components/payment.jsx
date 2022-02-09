@@ -6,9 +6,10 @@ import api from '../utils/api';
 
 export function PaySlip({ list }) {
   const [compatible, setCompatible] = useState(false);
-  let url = `/treatment/payment?list=${list.length ? list.join('-') : ''}`;
+  let url = `/treatment/payment/${list.length ? list.join('-') : ''}`;
 
   useEffect(async () => {
+    console.log(list);
     let { data } = await api.checkCompatibility(list); // Check compatibility
     if (data && Object.prototype.hasOwnProperty.call(data, 'compatible')) {
       setCompatible(data.compatible);
@@ -55,40 +56,51 @@ export function PaySlip({ list }) {
   return null;
 }
 
-export function PayRow({ data, returnToParent }) {
-  let [priceData, setPriceData] = useState({ cost: 1, qty: 1, total: 1 });
+export function PayRow({ tid, returnToParent }) {
+  let [treatmentData, setTreatmentData] = useState({});
+  let [price, setPrice] = useState({ cost: 1, qty: 1, total: 1 });
 
-  useEffect(
-    setPriceData({
-      ...priceData,
-      total: priceData.cost * priceData.qty
-    }),
-    [priceData.cost, priceData.qty]
-  );
+  useEffect(async () => {
+    // Fetch data upon mount
+    if (tid && Object.keys(treatmentData).length === 0) {
+      let { data } = await api.getTreatmentData(tid);
+      if (Object.keys(data).length) {
+        setTreatmentData(data);
+      }
+    }
+  }, []);
 
-  // useEffect(() => returnToParent({ ...data, ...priceData }), [priceData.total]);
+  useEffect(() => {
+    if (price.cost > -1 && price.qty > -1) {
+      setPrice({
+        ...price,
+        total: price.cost * price.qty
+      });
+      returnToParent(tid, price.cost * price.qty);
+    }
+  }, [price.cost, price.qty]);
 
   const handleInput = (e) => {
     let { name, value } = e.target;
     if (!isNaN(value) && isFinite(value)) {
       value = name === 'qty' ? parseInt(value) : parseFloat(value);
-      setPriceData({ ...priceData, [name]: value });
+      setPrice({ ...price, [name]: value });
     }
   };
 
-  if (!data.procedure_done || !data.treatment_date) {
+  if (!treatmentData.procedure_done || !treatmentData.treatment_date) {
     return <tr />;
   } else {
     return (
       <Fragment>
         <tr>
           <td className="wide-col-1">
-            <span>{data.procedure_done}</span>
+            <span>{treatmentData.procedure_done}</span>
             <br />
-            <span>{dayjs(data.treatment_date).format('D MMM YYYY')}</span>
+            <span>{dayjs(treatmentData.treatment_date).format('D MMM YYYY')}</span>
             <br />
-            {data?.teeth_num && data.teeth_num?.length ? (
-              <span>{data.teeth_num.join(',')}</span>
+            {treatmentData?.teeth_num && treatmentData.teeth_num?.length ? (
+              <span>{treatmentData.teeth_num.join(',')}</span>
             ) : null}
           </td>
           <td>
@@ -97,7 +109,7 @@ export function PayRow({ data, returnToParent }) {
               className="input-bar small-input-bar"
               min={1}
               name="cost"
-              value={priceData.cost}
+              value={price.cost}
               onInput={handleInput}
             />
           </td>
@@ -108,11 +120,11 @@ export function PayRow({ data, returnToParent }) {
               min={0}
               style={{ width: '2vw' }}
               name="qty"
-              value={priceData.qty}
+              value={price.qty}
               onInput={handleInput}
             />
           </td>
-          <td>{priceData.total}</td>
+          <td>{price.total}</td>
         </tr>
       </Fragment>
     );
