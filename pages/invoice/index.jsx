@@ -11,7 +11,8 @@ export default function InvoiceIndex() {
     window.open(`/view?path=${data.file}`);
   };
   useEffect(async () => {
-    let { data } = await api.fetchAllInvoices();
+    let { data, error } = await api.fetchAllInvoices();
+    console.log(data, error);
     if (data) {
       setInvoiceList(data.docs);
     }

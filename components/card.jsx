@@ -4,7 +4,7 @@ export const TreatmentCard = function ({ obj, key, clickable, handleClick }) {
   return (
     <div className="output-card" key={key}>
       {obj?.name ? (
-        <h3 style={{ fontWeight: 'normal'}}>
+        <h3 style={{ fontWeight: 'normal' }}>
           <strong>{obj.name}</strong> ({obj.p_id})
         </h3>
       ) : (
@@ -37,23 +37,24 @@ export const InvoiceCard = function ({ obj, key, handleClick }) {
   console.log(obj);
   return (
     <div className="output-card" key={key}>
-      <h2>{obj.p_id}</h2>
-      <h3>{obj.inv_id}</h3>
+      <h3 style={{ fontWeight: 'normal' }}>
+        <strong>{obj.name}</strong> ({obj.p_id})
+      </h3>
       {obj.doctor ? (
         <p>
           <strong>Doctor:</strong> {obj.doctor}
         </p>
       ) : null}
-      {obj.procedure_done ? (
+      {obj.treatments ? (
         <p>
-          <strong>Procedure:</strong> {obj.procedure_done}
+          <strong>Procedures:</strong>{' '}
+          {obj.treatments.map(({ procedure_done }) => procedure_done).join(', ')}
         </p>
       ) : null}
-      {
-        <p>
-          <strong>Generated on:</strong> {dayjs(obj.created_at).format('D MMM YYYY')}
-        </p>
-      }
+      <p>
+        <strong>Generated on:</strong> {dayjs(obj.created_at).format('D MMM YYYY')}
+      </p>
+      <h4>{obj.inv_id}</h4>
       <a className="beauty" onClick={() => handleClick(obj.inv_id)}>
         <em>Print Invoice</em>
       </a>
