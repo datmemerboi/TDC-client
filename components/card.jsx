@@ -1,6 +1,15 @@
 import dayjs from 'dayjs';
 
 export const TreatmentCard = function ({ obj, key, clickable, handleClick }) {
+  /**
+   * Card component for Treatments
+   *
+   * @version 1.2.2
+   * @prop {Object} obj The data object to be rendered as card
+   * @prop {Number} key Unique key to identify this DOM element
+   * @prop {Boolean} clickable Determines nature of Add to invoice button
+   * @prop {Function} handleClick Function to be called upon button click
+   */
   return (
     <div className="output-card" key={key}>
       {obj?.name ? (
@@ -34,15 +43,22 @@ export const TreatmentCard = function ({ obj, key, clickable, handleClick }) {
 };
 
 export const InvoiceCard = function ({ obj, key, handleClick }) {
-  console.log(obj);
+  /**
+   * Card component for Invoices
+   *
+   * @version 1.2.2
+   * @prop {Object} obj The data object to be rendered as card
+   * @prop {Number} key Unique key to identify this DOM element
+   * @prop {Function} handleClick Function to be called upon button click
+   */
   return (
     <div className="output-card" key={key}>
       <h3 style={{ fontWeight: 'normal' }}>
         <strong>{obj.name}</strong> ({obj.p_id})
       </h3>
-      {obj.doctor ? (
+      {obj.doctor && obj.doctor.length ? (
         <p>
-          <strong>Doctor:</strong> {obj.doctor}
+          <strong>Doctor:</strong> {obj.doctor.join(', ')}
         </p>
       ) : null}
       {obj.treatments ? (
@@ -55,9 +71,9 @@ export const InvoiceCard = function ({ obj, key, handleClick }) {
         <strong>Generated on:</strong> {dayjs(obj.created_at).format('D MMM YYYY')}
       </p>
       <h4>{obj.inv_id}</h4>
-      <a className="beauty" onClick={() => handleClick(obj.inv_id)}>
-        <em>Print Invoice</em>
-      </a>
+      <button className="proceed" onClick={() => handleClick(obj.inv_id)}>
+        Print Invoice
+      </button>
     </div>
   );
 };

@@ -5,6 +5,12 @@ import dayjs from 'dayjs';
 import api from '../utils/api';
 
 export function PaySlip({ list }) {
+  /**
+   * Component to render quick payment slip before entering payment details
+   *
+   * @version 1.2.2
+   * @prop {Array} list The list of treatments to create invoice
+   */
   const [compatible, setCompatible] = useState(false);
   let url = `/treatment/payment/${list.length ? list.join('-') : ''}`;
 
@@ -24,9 +30,9 @@ export function PaySlip({ list }) {
               Cannot create invoice for different patients / doctors
             </p>
           ) : null}
-          {list.length === 3 ? (
+          {list.length === 4 ? (
             <p>
-              Maximum <strong>3 treatments</strong> only
+              Maximum <strong>4 treatments</strong> only
             </p>
           ) : null}
           <ul>
@@ -56,6 +62,14 @@ export function PaySlip({ list }) {
 }
 
 export function PayRow({ data, index, returnToParent }) {
+  /**
+   * Component to render a single table row while entering payment details
+   *
+   * @version 1.2.2
+   * @prop {Object} data The treatment object to add payment info
+   * @prop {Number} index Index of the particular data object
+   * @prop {Function} returnToParent Function to be called upon any state change
+   */
   const [cost, setCost] = useState(1);
   const [qty, setQty] = useState(1);
 

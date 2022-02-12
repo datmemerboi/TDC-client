@@ -7,16 +7,17 @@ import api from '../../utils/api';
 export default function InvoiceIndex() {
   const [invoiceList, setInvoiceList] = useState(null);
   const printRequest = async (invid) => {
-    let { data } = await api.printInvoice(invid);
-    window.open(`/view?path=${data.file}`);
+    await api.printInvoice(invid);
+    window.open(`/invoice/view?id=${invid}`);
   };
+
   useEffect(async () => {
-    let { data, error } = await api.fetchAllInvoices();
-    console.log(data, error);
+    let { data } = await api.fetchAllInvoices();
     if (data) {
       setInvoiceList(data.docs);
     }
   }, []);
+
   return (
     <Fragment>
       <NavBar />
@@ -24,7 +25,7 @@ export default function InvoiceIndex() {
         <div className="scrollable">
           {invoiceList && invoiceList.length ? (
             invoiceList.map((obj, i) => (
-              <InvoiceCard key={i} obj={obj} returnToParent={printRequest} />
+              <InvoiceCard key={i} obj={obj} handleClick={printRequest} />
             ))
           ) : (
             <h2>No invoices generated yet!</h2>

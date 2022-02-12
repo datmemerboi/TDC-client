@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 
 import api from '../../utils/api';
 import { TreatmentCard } from '../../components/card';
@@ -8,6 +8,12 @@ import NavBar from '../../components/navbar';
 // &#x2A2F;
 
 export default function TreatmentSearch() {
+  /**
+   * Page to search through treatments by Patient ID or Treatment ID
+   *
+   * @version 1.2.2
+   * @route /treatment/search
+   */
   const [keyword, setKeyword] = useState('');
   const [type, setType] = useState('PID');
   const [result, setResult] = useState([]);
@@ -30,7 +36,7 @@ export default function TreatmentSearch() {
     setKeyword(e.target.value.toUpperCase());
   };
   const addItem = (value) => {
-    if (selectedList.length < 3 && !selectedList.includes(value)) {
+    if (selectedList.length < 4 && !selectedList.includes(value)) {
       setSelectedList([...selectedList, value]);
     }
   };
@@ -66,7 +72,7 @@ export default function TreatmentSearch() {
                 <TreatmentCard
                   obj={obj}
                   key={i}
-                  clickable={selectedList.length < 3}
+                  clickable={selectedList.length < 4}
                   handleClick={addItem}
                 />
               ))}
@@ -74,7 +80,7 @@ export default function TreatmentSearch() {
           ) : null}
         </div>
       </div>
-      <div style={{ position: 'relative', top: '5vmin'}}>
+      <div style={{ position: 'relative', top: '5vmin' }}>
         <PaySlip list={selectedList} />
       </div>
     </Fragment>
