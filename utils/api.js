@@ -254,7 +254,7 @@ async function printInvoice(invid) {
   try {
     url = config.API_URL + `/api/invoice/print/${invid}`;
     res = await fetch(url);
-    if (res.status === 200) {
+    if (res.status === 201) {
       data = await res.json();
     } else {
       error = res;
