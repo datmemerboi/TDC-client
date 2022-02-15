@@ -370,6 +370,80 @@ async function createInvoice(invoiceObj) {
   }
 }
 
+async function createAppointment(appointmentObj) {
+  let url,
+    res,
+    data = {},
+    error = {};
+  try {
+    url = config.API_URL + `/api/appointment/new/`;
+    let options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(appointmentObj)
+    };
+    res = await fetch(url, options);
+    if (res.status === 201) {
+      data = await res.json();
+    } else {
+      error = res;
+    }
+  } catch (e) {
+    error = e;
+  } finally {
+    return { data, error };
+  }
+}
+
+async function getAppointmentsByDate(from, to) {
+  let url,
+    res,
+    data = {},
+    error = {};
+  try {
+    url = config.API_URL + `/api/appointment/all/?from=${from}&to=${to}`;
+    res = await fetch(url);
+    if (res.status === 200) {
+      data = await res.json();
+    } else {
+      error = res;
+    }
+  } catch (e) {
+    error = e;
+  } finally {
+    return { data, error };
+  }
+}
+
+async function updateAppointment(appid, obj) {
+  let url,
+    res,
+    data = {},
+    error = {};
+  try {
+    url = config.API_URL + `/api/appointment/update/${appid}`;
+    let options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(obj)
+    };
+    res = await fetch(url, options);
+    if (res.status === 200) {
+      data = await res.json();
+    } else {
+      error = res;
+    }
+  } catch (e) {
+    error = e;
+  } finally {
+    return { data, error };
+  }
+}
+
 export default {
   fetchAllPatients,
   createPatient,
@@ -384,5 +458,8 @@ export default {
   fetchAppointmentsByDate,
   getTreatmentData,
   createInvoice,
-  checkCompatibility
+  checkCompatibility,
+  createAppointment,
+  getAppointmentsByDate,
+  updateAppointment
 };
