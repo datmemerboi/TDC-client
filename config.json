@@ -59,5 +59,14 @@
       37,
       38
     ]
+  },
+  "COLOR_THEMES": [
+    "rgb(246, 130, 140)",
+    "rgb(55, 30, 48)",
+    "rgb(161, 205, 241)"
+  ],
+  "CALENDAR_MODES": {
+    "MONTH_VIEW": "MONTHLY",
+    "DAY_VIEW": "DAILY"
   }
 }
