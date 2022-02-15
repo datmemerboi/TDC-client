@@ -418,6 +418,9 @@ div.day-scrollable-container {
   width: 98%;
   height: 80vh;
 }
+div.day-scrollable-container div.day-details {
+  text-align: center;
+}
 div.hour {
   text-align: left;
   min-height: 9vh;

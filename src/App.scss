@@ -74,6 +74,7 @@ nav {
   position: absolute;
   top: 0;
   left: 0;
+  display: flex;
 
   img.logo {
     width: inherit; height: 7vh;
@@ -454,6 +455,10 @@ div.day-scrollable-container {
   overflow-y: auto;
   width: 98%;
   height: 80vh;
+
+  div.day-details {
+    text-align: center;
+  }
 }
 div.hour {
   text-align: left;
