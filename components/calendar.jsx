@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import { WeekDay, Day } from './day';
 import config from '../config.json';
@@ -7,12 +7,12 @@ import api from '../utils/api';
 
 export default function Calendar(props) {
   /**
-   * Entire monthly calendar component
+   * Entire monthly calendar component (with daily view)
    *
    * @version 1.2.2
    * @prop {Date} now A date from the month to be rendered
    */
-  const now = props.now || new Date();
+  const [now, setNow] = useState(props.now || new Date());
   const [choice, setChoice] = useState({ mode: config.CALENDAR_MODES.MONTH_VIEW, chosenDay: now });
   const [appsInThisMonth, setAppsInThisMonth] = useState([]);
 
@@ -24,7 +24,10 @@ export default function Calendar(props) {
     if (Object.keys(data).length) {
       setAppsInThisMonth(data.docs);
     }
-  }, []);
+  }, [now]);
+
+  const shiftToPrevMonth = () => setNow(dayjs(now).subtract(1, 'month'));
+  const shiftToNextMonth = () => setNow(dayjs(now).add(1, 'month'));
 
   if (choice.mode === config.CALENDAR_MODES.MONTH_VIEW) {
     let numberOfDaysInMonth = dayjs(now).daysInMonth();
@@ -55,30 +58,51 @@ export default function Calendar(props) {
     }
 
     return (
-      <div className="container">
-        <div className="days-container">
-          {weeks.map((week, i) => (
-            <div className="week" key={i}>
-              {week.map((day, j) => (
-                <WeekDay
-                  dayObj={day}
-                  key={j}
-                  clickHandler={() =>
-                    setChoice({ mode: config.CALENDAR_MODES.DAY_VIEW, chosenDay: day })
-                  }
-                />
+      <Fragment>
+        <div className="container">
+          <div className="mode-container">
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '2vmin' }}>
+              <span style={{ fontSize: '30px', padding: 0 }} onClick={shiftToPrevMonth}>
+                &#8592;
+              </span>
+              <h3>{dayjs(now).format('MMMM YYYY')}</h3>
+              <span style={{ fontSize: '30px', padding: 0 }} onClick={shiftToNextMonth}>
+                &#8594;
+              </span>
+            </div>
+            <div className="week-days-header">
+              {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((w, i) => (
+                <span className="heading" key={i}>
+                  {w}
+                </span>
               ))}
             </div>
-          ))}
+          </div>
+          <div className="days-container">
+            {weeks.map((week, i) => (
+              <div className="week" key={i}>
+                {week.map((day, j) => (
+                  <WeekDay
+                    dayObj={day}
+                    key={j}
+                    appointments={appsInThisMonth}
+                    handleClick={() =>
+                      setChoice({ mode: config.CALENDAR_MODES.DAY_VIEW, chosenDay: day })
+                    }
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </Fragment>
     );
   } else {
     return (
       <div className="container">
         <Day
           dayObj={choice.chosenDay}
-          clickHandler={() => setChoice({ mode: config.CALENDAR_MODES.MONTH_VIEW })}
+          handleClick={() => setChoice({ mode: config.CALENDAR_MODES.MONTH_VIEW })}
           appointments={appsInThisMonth}
         />
       </div>

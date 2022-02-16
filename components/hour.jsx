@@ -1,15 +1,22 @@
 import { useState } from 'react';
 
 import Appointment from './calendar/appointment';
-import { NewAppointment, ViewAppointment } from './appointment';
+import { NewAppointment, ViewOrEditAppointment } from './appointment';
 
 const HOUR_STRING_FORMAT = 'hh:mm A';
 
 export default function Hour({ hourObj, appointments }) {
+/**
+   * Hour component within a daily calendar
+   *
+   * @version 1.2.2
+   * @prop {Object} hourObj A dayjs object for the particular hour
+   * @prop {Array} appointments List of appointments for this month
+   */
   const [showNewAppForm, setShowNewAppForm] = useState(false);
-  const hourIsDisabled = hourObj.hour() <= 7 || hourObj.hour() >= 21;
+  const beyondWorkingHours = hourObj.hour() <= 7 || hourObj.hour() >= 21;
 
-  if (hourIsDisabled) {
+  if (beyondWorkingHours) {
     return <div className="hour disabled">{hourObj.format(HOUR_STRING_FORMAT)}</div>;
   } else {
     let startOfHour = hourObj.startOf('hour').valueOf();
@@ -29,11 +36,11 @@ export default function Hour({ hourObj, appointments }) {
         <strong>{hourObj.format(HOUR_STRING_FORMAT)}</strong>
         <div className="appointment-container">
           {showNewAppForm ? (
-            <NewAppointment hourObj={hourObj} returnToParent={handleClick} />
+            <NewAppointment hourObj={hourObj} handleClick={handleClick} />
           ) : null}
           {appsInThisHour.length
             ? appsInThisHour.map((app) => (
-                <ViewAppointment appObj={app} key={app.app_id} clickHandler={() => {}} />
+                <ViewOrEditAppointment hourObj={hourObj} appObj={app} key={app.app_id} />
               ))
             : null}
         </div>
