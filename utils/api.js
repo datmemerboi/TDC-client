@@ -444,6 +444,98 @@ async function updateAppointment(appid, obj) {
   }
 }
 
+async function deletePatient(pid) {
+  let url,
+    res,
+    data = {},
+    error = {};
+  try {
+    url = config.API_URL + `/api/patient/delete/${pid}`;
+    let options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    res = await fetch(url, options);
+    switch (res.status) {
+      case 204:
+        data = { success: true };
+        break;
+      case 404:
+        error = { status: 404, message: 'Patient not found' };
+        break;
+      default:
+        error = { status: res.status, message: 'Some error occured. Try again.' };
+        break;
+    }
+  } catch (e) {
+    error = e;
+  } finally {
+    return { data, error };
+  }
+}
+
+async function deleteTreatment(tid) {
+  let url,
+    res,
+    data = {},
+    error = {};
+  try {
+    url = config.API_URL + `/api/treatment/delete/${tid}`;
+    let options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    res = await fetch(url, options);
+    switch (res.status) {
+      case 204:
+        data = { success: true };
+        break;
+      case 404:
+        error = { status: 404, message: 'Treatment not found' };
+        break;
+      default:
+        error = { status: res.status, message: 'Some error occured. Try again.' };
+        break;
+    }
+  } catch (e) {
+    error = e;
+  } finally {
+    return { data, error };
+  }
+}
+
+async function changeDoctors(doctors) {
+  let url,
+    res,
+    data = {},
+    error = {};
+  try {
+    url = config.API_URL + '/doctor';
+    let options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(doctors)
+    };
+
+    res = await fetch(url, options);
+    if (res.status === 200) {
+      data = await res.json();
+    } else {
+      error = res;
+    }
+  } catch (e) {
+    error = e;
+  } finally {
+    return { data, error };
+  }
+}
+
 export default {
   fetchAllPatients,
   createPatient,
@@ -461,5 +553,8 @@ export default {
   checkCompatibility,
   createAppointment,
   getAppointmentsByDate,
-  updateAppointment
+  updateAppointment,
+  deletePatient,
+  deleteTreatment,
+  changeDoctors
 };

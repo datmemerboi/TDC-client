@@ -1,10 +1,17 @@
+import Head from 'next/head';
 import { Fragment, useState, useEffect } from 'react';
 
+import api from '../../utils/api.js';
 import NavBar from '../../components/navbar.jsx';
 import { tableRowFromPatientList } from '../../components/common';
-import api from '../../utils/api.js';
 
 export default function PatientSearch() {
+  /**
+   * Page to render search patients
+   *
+   * @version 1.2.2
+   * @route /patient/search
+   */
   const [keyword, setKeyword] = useState('');
   const [type, setType] = useState('Name');
   const [result, setResult] = useState([]);
@@ -25,6 +32,9 @@ export default function PatientSearch() {
 
   return (
     <Fragment>
+      <Head>
+        <title>Search a patient</title>
+      </Head>
       <NavBar />
       <div className="container">
         <div className="center-of-page">

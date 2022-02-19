@@ -1,10 +1,17 @@
+import Head from 'next/head';
 import { Component, Fragment, createRef } from 'react';
 
 import api from '../../utils/api';
-import NavBar from '../../components/navbar';
 import Modal from '../../components/modal';
+import NavBar from '../../components/navbar';
 
 export default class PatientForm extends Component {
+  /**
+   * Page to render new-patient form
+   *
+   * @version 1.2.2
+   * @route /patient/form
+   */
   constructor(props) {
     super(props);
 
@@ -70,6 +77,9 @@ export default class PatientForm extends Component {
   render() {
     return (
       <Fragment>
+        <Head>
+          <title>Create new patient</title>
+        </Head>
         <NavBar />
         <div className="container">
           <div className="hold-together">
@@ -141,11 +151,9 @@ export default class PatientForm extends Component {
             </button>
           </div>
         </div>
-        <Modal
-          show={this.state.showModal}
-          message={this.state.message}
-          clickHandler={this.closeModal}
-        ></Modal>
+        <Modal show={this.state.showModal} handleClick={this.closeModal}>
+          <h3>{this.state.message}</h3>
+        </Modal>
       </Fragment>
     );
   }

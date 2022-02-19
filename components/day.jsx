@@ -60,7 +60,9 @@ export function Day({ dayObj, appointments, handleClick }) {
   return (
     <div className="day-scrollable-container">
       <div className="day-details">
-        <h3 onClick={handleClick}>{dayObj.format(DAY_STRING_FORMAT)}</h3>
+        <a onClick={handleClick}>
+          <h3>{dayObj.format(DAY_STRING_FORMAT)}</h3>
+        </a>
       </div>
       <div className="day-hours">
         {hoursOfDay.map((h, i) => (

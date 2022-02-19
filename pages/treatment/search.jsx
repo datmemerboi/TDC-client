@@ -1,11 +1,10 @@
+import Head from 'next/head';
 import { Fragment, useState, useEffect } from 'react';
 
 import api from '../../utils/api';
-import { TreatmentCard } from '../../components/card';
-import { PaySlip } from '../../components/payment';
 import NavBar from '../../components/navbar';
-
-// &#x2A2F;
+import { PaySlip } from '../../components/payment';
+import { TreatmentCard } from '../../components/card';
 
 export default function TreatmentSearch() {
   /**
@@ -43,6 +42,9 @@ export default function TreatmentSearch() {
 
   return (
     <Fragment>
+      <Head>
+        <title>Search for treatment</title>
+      </Head>
       <NavBar />
       <div className="container">
         <div className="center-of-page">

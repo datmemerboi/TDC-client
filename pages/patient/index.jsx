@@ -1,11 +1,21 @@
-import { Fragment } from 'react';
+import Head from 'next/head';
 import Link from 'next/link';
+import { Fragment } from 'react';
 
 import NavBar from '../../components/navbar';
 
-export default function PatientIndex() {
+export default function () {
+  /**
+   * Page for indexing all patient pages
+   *
+   * @version 1.2.2
+   * @route /patient
+   */
   return (
     <Fragment>
+      <Head>
+        <title>Patient</title>
+      </Head>
       <NavBar />
       <div className="container">
         <h2>Patient pages</h2>

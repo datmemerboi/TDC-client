@@ -42,17 +42,16 @@ export const TreatmentCard = function ({ obj, key, clickable, handleClick }) {
   );
 };
 
-export const InvoiceCard = function ({ obj, key, handleClick }) {
+export const InvoiceCard = function ({ obj, handleClick }) {
   /**
    * Card component for Invoices
    *
    * @version 1.2.2
    * @prop {Object} obj The data object to be rendered as card
-   * @prop {Number} key Unique key to identify this DOM element
    * @prop {Function} handleClick Function to be called upon button click
    */
   return (
-    <div className="output-card" key={key}>
+    <div className="output-card">
       <h3 style={{ fontWeight: 'normal' }}>
         <strong>{obj.name}</strong> ({obj.p_id})
       </h3>

@@ -58,6 +58,19 @@ nav {
   left: 0;
   display: flex;
 }
+nav div.image-container {
+  display: flex;
+  width: 20vw;
+}
+nav div.link-container {
+  display: flex;
+  width: 70%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+nav div.link-container a p:hover {
+  color: white;
+}
 nav img.logo {
   width: inherit;
   height: 7vh;
@@ -272,6 +285,7 @@ button.accept {
   border: solid 3px #8cce5a;
   color: #8cce5a;
   outline: none;
+  margin: 4px;
 }
 button.reject {
   width: 8vw;
@@ -282,6 +296,7 @@ button.reject {
   border: solid 3px #c31532;
   color: #fff;
   outline: none;
+  margin: 4px;
 }
 button.smaller {
   width: 6vw;
@@ -364,7 +379,7 @@ div.calendar-container {
 }
 div.week-days-header {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 div.week-days-header .heading {
   display: block;
@@ -376,7 +391,7 @@ div.week-days-header .heading {
 div.days-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
 }
 div.days-container .week {
   display: flex;
@@ -434,7 +449,9 @@ div.hour.disabled {
 }
 div.hour .appointment-strip {
   padding: 1vmin;
-  display: block;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 div.hour .appointment-strip div.hold-together {
   display: flex;
@@ -456,11 +473,12 @@ div.appointment-container {
   padding: 1vmin 0 1vmin 0;
 }
 div.new-appointment-container {
-  width: 80%;
+  min-width: 80%;
   padding: 1vmin;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: center;
 }
 div.meta-container {
   position: absolute;

@@ -1,13 +1,20 @@
-import { Fragment, useState, useEffect } from 'react';
 import dayjs from 'dayjs';
+import Head from 'next/head';
+import { Fragment, useState, useEffect } from 'react';
 
+import api from '../../utils/api';
+import config from '../../config.json';
 import Modal from '../../components/modal';
 import NavBar from '../../components/navbar';
 import { arrangementFromTeethNumbering } from '../../components/common';
-import config from '../../config.json';
-import api from '../../utils/api';
 
 export default function TreatmentForm() {
+  /**
+   * Page to render new treatment form
+   *
+   * @version 1.2.2
+   * @route /treatment/form
+   */
   const defaultState = {
     procedure_done: '',
     teeth_number: [],
@@ -79,7 +86,6 @@ export default function TreatmentForm() {
       setModal({ show: true, message: `Treatment ${data.t_id} created` });
     }
   };
-  const toggleModal = () => setModal({ ...modal, show: !modal.show });
 
   const teethArrangement = arrangementFromTeethNumbering(
     config.TEETH_NUMBERING,
@@ -88,6 +94,9 @@ export default function TreatmentForm() {
 
   return (
     <Fragment>
+      <Head>
+        <title>Create new treatment</title>
+      </Head>
       <NavBar />
       <div className="container">
         <div className="hold-together">
@@ -218,11 +227,9 @@ export default function TreatmentForm() {
           </div>
         </div>
       </div>
-      <Modal
-        show={modal.show}
-        message={modal.message}
-        clickHandler={() => setModal({ show: false })}
-      />
+      <Modal show={modal.show} handleClick={() => setModal({ show: false })}>
+        <h3>{modal.message}</h3>
+      </Modal>
     </Fragment>
   );
 }

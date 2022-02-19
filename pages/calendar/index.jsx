@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import Head from 'next/head';
 
 import NavBar from '../../components/navbar';
 import Calendar from '../../components/calendar';
@@ -12,6 +13,9 @@ export default function CalendarIndex() {
    */
   return (
     <Fragment>
+      <Head>
+        <title>Calendar</title>
+      </Head>
       <NavBar />
       <Calendar />
     </Fragment>

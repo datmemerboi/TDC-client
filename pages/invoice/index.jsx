@@ -1,10 +1,17 @@
+import Head from 'next/head';
 import { Fragment, useState, useEffect } from 'react';
 
-import { InvoiceCard } from '../../components/card';
-import NavBar from '../../components/navbar';
 import api from '../../utils/api';
+import NavBar from '../../components/navbar';
+import { InvoiceCard } from '../../components/card';
 
 export default function InvoiceIndex() {
+  /**
+   * Page to render list of invoices generated
+   *
+   * @version 1.2.2
+   * @route /invoice
+   */
   const [invoiceList, setInvoiceList] = useState(null);
   const printRequest = async (invid) => {
     await api.printInvoice(invid);
@@ -20,6 +27,9 @@ export default function InvoiceIndex() {
 
   return (
     <Fragment>
+      <Head>
+        <title>Invoice</title>
+      </Head>
       <NavBar />
       <div className="container">
         <div className="scrollable">

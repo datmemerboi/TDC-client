@@ -72,9 +72,9 @@ export default function Calendar(props) {
             </div>
             <div className="week-days-header">
               {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((w, i) => (
-                <span className="heading" key={i}>
-                  {w}
-                </span>
+                <div className="heading" key={i}>
+                  <h3>{w}</h3>
+                </div>
               ))}
             </div>
           </div>

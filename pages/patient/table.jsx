@@ -1,10 +1,17 @@
+import Head from 'next/head';
 import { Fragment, useState, useEffect } from 'react';
-import NavBar from '../../components/navbar';
 
 import api from '../../utils/api';
+import NavBar from '../../components/navbar';
 import { tableRowFromPatientList } from '../../components/common';
 
 export default function PatientTable() {
+  /**
+   * Page to render all patients in a table
+   *
+   * @version 1.2.2
+   * @route /patient/table
+   */
   const [tableRows, setTableRows] = useState([]);
 
   useEffect(async () => {
@@ -18,6 +25,9 @@ export default function PatientTable() {
 
   return (
     <Fragment>
+      <Head>
+        <title>All patients</title>
+      </Head>
       <NavBar />
       <div className="container">
         <div className="scrollable">

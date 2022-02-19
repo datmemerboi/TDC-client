@@ -68,5 +68,13 @@
   "CALENDAR_MODES": {
     "MONTH_VIEW": "MONTHLY",
     "DAY_VIEW": "DAILY"
+  },
+  "APPOINTMENT_MODES": {
+    "VIEW": 0,
+    "EDIT": 1
+  },
+  "DELETE_TYPES": {
+    "PATIENT": "P",
+    "TREATMENT": "T"
   }
 }

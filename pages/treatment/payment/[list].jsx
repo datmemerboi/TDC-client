@@ -1,13 +1,20 @@
-import { Fragment, useEffect, useState } from 'react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { Fragment, useEffect, useState } from 'react';
 
-import NavBar from '../../../components/navbar';
-import Modal from '../../../components/modal';
-import { PayRow } from '../../../components/payment';
-import config from '../../../config.json';
 import api from '../../../utils/api';
+import config from '../../../config.json';
+import Modal from '../../../components/modal';
+import NavBar from '../../../components/navbar';
+import { PayRow } from '../../../components/payment';
 
 export default function TreatmentPayment(props) {
+  /**
+   * Page to render treatment payment form
+   *
+   * @version 1.2.2
+   * @route /treatment/payment/[list]
+   */
   const router = useRouter();
 
   const [treatments, setTreatments] = useState([]);
@@ -77,6 +84,9 @@ export default function TreatmentPayment(props) {
 
   return (
     <Fragment>
+      <Head>
+        <title>Payment</title>
+      </Head>
       <NavBar />
       <div className="container">
         <h3>NEW INVOICE</h3>
@@ -143,11 +153,9 @@ export default function TreatmentPayment(props) {
           </button>
         </div>
       </div>
-      <Modal
-        show={modal.show}
-        message={modal.message}
-        clickHandler={() => setModal({ ...modal, show: false })}
-      />
+      <Modal show={modal.show} handleClick={() => setModal({ ...modal, show: false })}>
+        <h3>{modal.message}</h3>
+      </Modal>
     </Fragment>
   );
 }
