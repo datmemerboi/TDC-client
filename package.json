@@ -1,9 +1,8 @@
 {
   "name": "tdc-client",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "dependencies": {
     "dayjs": "^1.10.7",
-    "lodash.debounce": "^4.0.8",
     "next": "^12.0.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -11,8 +10,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "react-scripts build",
-    "start": "react-scripts start",
+    "build": "next build",
+    "start": "next start",
     "local": "REACT_APP_ENVIRONMENT=local npm start",
     "local_windows": "set REACT_APP_ENVIRONMENT=local&&npm start"
   },
