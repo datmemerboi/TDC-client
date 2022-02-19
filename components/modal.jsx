@@ -1,30 +1,10 @@
-import { useState } from 'react';
-
-export default function Modal({ show, content, message, clickHandler }) {
-  if (show) {
-    if (content) {
-      return (
-        <div className="modal-container" onClick={clickHandler}>
-          <div className="modal-message">
-            <div>{content}</div>
-          </div>
-        </div>
-      );
-    } else if (message) {
-      return (
-        <div className="modal-container" onClick={clickHandler}>
-          <div className="modal-message">
-            <h3>{message}</h3>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="modal-container" onClick={clickHandler}>
-          <div className="modal-message" />
-        </div>
-      );
-    }
+export default function Modal(props) {
+  if (props.show) {
+    return (
+      <div className="modal-container" onClick={props.handleClick}>
+        <div className="modal-message">{props.children || null}</div>
+      </div>
+    );
   }
   return null;
 }
