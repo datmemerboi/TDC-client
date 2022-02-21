@@ -81,18 +81,48 @@ export function metaFromStats(stats) {
   }
 }
 
-export function arrangementFromTeethNumbering(tn, clickHandler) {
+export function arrangementFromTeethNumbering(tn, handleClick, selectedTeeth = []) {
   if (!tn.RU || !tn.LU || !tn.RL || !tn.LL) {
     return [];
   } else {
     // RU
-    let ru = tn.RU.map((num) => <Teeth number={num} returnToParent={clickHandler} />);
+    let ru = tn.RU.map((num) => {
+      return (
+        <Teeth
+          number={num}
+          selected={selectedTeeth.includes(num)}
+          handleClick={handleClick}
+          key={num}
+        />
+      );
+    });
     // LU
-    let lu = tn.LU.map((num) => <Teeth number={num} returnToParent={clickHandler} />);
+    let lu = tn.LU.map((num) => (
+      <Teeth
+        number={num}
+        selected={selectedTeeth.includes(num)}
+        handleClick={handleClick}
+        key={num}
+      />
+    ));
     // RL
-    let rl = tn.RL.map((num) => <Teeth number={num} returnToParent={clickHandler} />);
+    let rl = tn.RL.map((num) => (
+      <Teeth
+        number={num}
+        selected={selectedTeeth.includes(num)}
+        handleClick={handleClick}
+        key={num}
+      />
+    ));
     // LL
-    let ll = tn.LL.map((num) => <Teeth number={num} returnToParent={clickHandler} />);
+    let ll = tn.LL.map((num) => (
+      <Teeth
+        number={num}
+        selected={selectedTeeth.includes(num)}
+        handleClick={handleClick}
+        key={num}
+      />
+    ));
     let urow = (
       <div className="teeth-row">
         {ru}

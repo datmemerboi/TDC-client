@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-export const TreatmentCard = function ({ obj, key, clickable, handleClick }) {
+export function TreatmentCard({ obj, key, clickable, handleClick }) {
   /**
    * Card component for Treatments
    *
@@ -40,9 +40,9 @@ export const TreatmentCard = function ({ obj, key, clickable, handleClick }) {
       </div>
     </div>
   );
-};
+}
 
-export const InvoiceCard = function ({ obj, handleClick }) {
+export function InvoiceCard({ obj, handleClick }) {
   /**
    * Card component for Invoices
    *
@@ -70,9 +70,17 @@ export const InvoiceCard = function ({ obj, handleClick }) {
         <strong>Generated on:</strong> {dayjs(obj.created_at).format('D MMM YYYY')}
       </p>
       <h4>{obj.inv_id}</h4>
-      <button className="proceed" onClick={() => handleClick(obj.inv_id)}>
-        Print Invoice
-      </button>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'column'
+        }}
+      >
+        <button className="proceed" onClick={() => handleClick(obj.inv_id)}>
+          Print Invoice
+        </button>
+      </div>
     </div>
   );
-};
+}
