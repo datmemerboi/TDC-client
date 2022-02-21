@@ -70,7 +70,7 @@ export default function TreatmentForm() {
       let newlySelected = [...previouslySelected];
 
       if (previouslySelected.includes(newTeeth)) {
-        newlySelected.splice(previouslySelected.indexOf(newTeeth));
+        newlySelected.splice(previouslySelected.indexOf(newTeeth), 1);
       } else {
         newlySelected.push(newTeeth);
       }
@@ -79,17 +79,36 @@ export default function TreatmentForm() {
     });
   };
   const handleSubmit = async () => {
-    let { data, error } = await api.createTreatment({ ...formData, p_id: patient.p_id });
+    let treatmentObj = Object.entries(formData).reduce(
+      (acc, [key, val]) => ({ ...acc, [key]: val }),
+      { p_id: patient.p_id }
+    );
+
+    if (!treatmentObj.p_id) {
+      return setModal({ show: true, message: 'Patient ID cannot be empty.' });
+    }
+    if (!treatmentObj.doctor) {
+      return setModal({ show: true, message: 'Doctor cannot be empty.' });
+    }
+    if (!treatmentObj.procedure_done) {
+      return setModal({ show: true, message: 'Procedure done cannot be empty.' });
+    }
+    if (!treatmentObj.treatment_date) {
+      return setModal({ show: true, message: 'Treatment date cannot be empty.' });
+    }
+
+    let { data, error } = await api.createTreatment(treatmentObj);
     if (error?.message) {
       setModal({ show: true, message: error.message });
     } else {
-      setModal({ show: true, message: `Treatment ${data.t_id} created` });
+      setModal({ show: true, message: `Treatment ${data.t_id} created.` });
     }
   };
 
   const teethArrangement = arrangementFromTeethNumbering(
     config.TEETH_NUMBERING,
-    handleToothSelection
+    handleToothSelection,
+    formData.teeth_number
   );
 
   return (
@@ -139,7 +158,6 @@ export default function TreatmentForm() {
                 Teeth Number &darr;
               </label>
               <br />
-              {/* TODO: Below loc */}
               {togglers.showTeethArrangement ? teethArrangement : null}
             </div>
             <div>

@@ -41,12 +41,11 @@ export default class PatientForm extends Component {
 
   handleSubmit = async () => {
     if (this.patient.name.current.value === '') {
-      console.info('calling modal');
-      this.setState({ showModal: true, message: 'Name cannot be empty!' });
+      this.setState({ showModal: true, message: 'Patient name cannot be empty.' });
       return;
     }
     if (this.patient.contact.current.value === '') {
-      this.setState({ showModal: true, message: 'Contact cannot be empty!' });
+      this.setState({ showModal: true, message: 'Patient contact cannot be empty.' });
       return;
     }
 

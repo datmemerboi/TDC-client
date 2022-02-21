@@ -27,11 +27,15 @@ export default function PatientEdit() {
   const [modal, setModal] = useState({ show: false, message: null });
 
   useEffect(async () => {
-    const { data } = await api.getPatient(pid);
-    setFormData({
-      ...formData,
-      ...data
-    });
+    if (pid.length > 3) {
+      const { data } = await api.getPatient(pid);
+      if (Object.keys(data).length) {
+        setFormData({
+          ...formData,
+          ...data
+        });
+      }
+    }
   }, [pid]);
 
   const pidHandler = (e) => {
@@ -39,7 +43,7 @@ export default function PatientEdit() {
   };
   const handleInput = (e) => {
     let { name, value } = e.target;
-    if (name === 'age' || name === 'contact') {
+    if ((name === 'age' || name === 'contact') && !isNaN(parseInt(value))) {
       value = parseInt(value);
     }
     setFormData({ ...formData, [name]: value });
@@ -50,19 +54,24 @@ export default function PatientEdit() {
       {}
     );
 
+    if (!patientObj.name) {
+      return setModal({ show: true, message: 'Patient name cannot be empty.' });
+    }
+    if (!patientObj.contact) {
+      return setModal({ show: true, message: 'Patient contact cannot be empty.' });
+    }
+
     let { error } = await api.updatePatient(pid, patientObj);
     if (error?.message) {
-      setModal({
+      return setModal({
         show: true,
         message: error.message
       });
-      return;
     } else {
-      setModal({
+      return setModal({
         show: true,
-        message: `Patient ${pid} updated`
+        message: `Patient ${pid} updated.`
       });
-      return;
     }
   };
   const toggleModal = () => {
