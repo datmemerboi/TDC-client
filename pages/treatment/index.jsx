@@ -30,6 +30,11 @@ export default function () {
               <a>Search Treatment</a>
             </Link>
           </li>
+          <li>
+            <Link href="/treatment/edit">
+              <a>Edit Treatment</a>
+            </Link>
+          </li>
         </ul>
       </div>
     </Fragment>
