@@ -40,7 +40,6 @@ export default function () {
     if (type === config.DELETE_TYPES.PATIENT) {
       // Delete Patient
       let { data, error } = await api.deletePatient(patientRef.current.value);
-      console.log(data, error);
       if (error?.message) {
         // ERROR
         return setModal({ ...modal, show: true, message: error.message });
