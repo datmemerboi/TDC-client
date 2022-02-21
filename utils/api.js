@@ -8,7 +8,6 @@ async function fetchAllPatients() {
   try {
     // url = process.env.RUNNING_LOCALLY ? '/api/patient/all/' : config.API_URL + '/api/patient/all/';
     url = config.API_URL + '/api/patient/all/';
-    console.log(process.env.RUNNING_LOCALLY, url);
     res = await fetch(url);
     if (res.status === 200) {
       data = await res.json();
