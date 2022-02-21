@@ -491,6 +491,7 @@ div.meta-container {
 div.meta-container.right {
   right: 0;
   left: auto;
+  top: 4vh;
 }
 div.meta-div {
   background-color: purple;
