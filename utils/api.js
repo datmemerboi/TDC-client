@@ -536,6 +536,49 @@ async function changeDoctors(doctors) {
   }
 }
 
+async function updateTreatment(tid, obj) {
+  let url,
+    res,
+    data = {},
+    error = {};
+  try {
+    url = config.API_URL + `/api/treatment/update/${tid}`;
+    let options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(obj)
+    };
+    res = await fetch(url, options);
+    switch (res.status) {
+      case 200: {
+        data = await res.json();
+        break;
+      }
+      case 400: {
+        error = {
+          status: 400,
+          message: 'Patient ID, Procedure, Date and Doctor fields cannot be empty'
+        };
+        break;
+      }
+      case 500: {
+        error = { status: 500, message: 'Server Error occured! Try again.' };
+        break;
+      }
+      default: {
+        error = { status: res.status, message: 'Some error occured. Try again.' };
+        break;
+      }
+    }
+  } catch (e) {
+    error = e;
+  } finally {
+    return { data, error };
+  }
+}
+
 export default {
   fetchAllPatients,
   createPatient,
@@ -556,5 +599,6 @@ export default {
   updateAppointment,
   deletePatient,
   deleteTreatment,
-  changeDoctors
+  changeDoctors,
+  updateTreatment
 };
