@@ -199,7 +199,7 @@ export default function PatientEdit() {
             </div>
           </div>
         </div>
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
           <button className="primary" onClick={handleSubmit}>
             SUBMIT
           </button>

@@ -144,7 +144,7 @@ export default class PatientForm extends Component {
               <br />
             </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
             <button type="submit" className="primary" onClick={this.handleSubmit}>
               SUBMIT
             </button>
