@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import Appointment from './calendar/appointment';
 import { NewAppointment, ViewOrEditAppointment } from './appointment';
 
 const HOUR_STRING_FORMAT = 'hh:mm A';
