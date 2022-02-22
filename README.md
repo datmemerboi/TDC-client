@@ -1,14 +1,15 @@
 TDC Client
 =
-The front end system to interact with the TDC API([repo](https://github.com/datmemerboi/TDC)). Entire system is built on React.
+The front end system to interact with the TDC API([repo](https://github.com/datmemerboi/TDC)). Entire system is built on React (with Next JS).
 
 **Note:** Even though all modules are completed & working, this project is still in a very rough state. Refactor & modifications will be done very soon.
 
-## Modules
+## Pages
 - Patient
 - Treatment
 - Calendar
 - Invoice
+- Management
 
 ## Installation
 This repo does not contain any releases as production builds from React do not support localhost proxy. The main goal of this app is to run locally with the TDC API.
