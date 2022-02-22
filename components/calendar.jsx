@@ -62,11 +62,17 @@ export default function Calendar(props) {
         <div className="container">
           <div className="mode-container">
             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '2vmin' }}>
-              <span style={{ fontSize: '30px', padding: 0 }} onClick={shiftToPrevMonth}>
+              <span
+                style={{ fontSize: '30px', padding: 0, cursor: 'pointer' }}
+                onClick={shiftToPrevMonth}
+              >
                 &#8592;
               </span>
               <h3>{dayjs(now).format('MMMM YYYY')}</h3>
-              <span style={{ fontSize: '30px', padding: 0 }} onClick={shiftToNextMonth}>
+              <span
+                style={{ fontSize: '30px', padding: 0, cursor: 'pointer' }}
+                onClick={shiftToNextMonth}
+              >
                 &#8594;
               </span>
             </div>
