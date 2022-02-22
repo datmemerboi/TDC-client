@@ -1,4 +1,4 @@
-// MISC COMPONENTS
+# MISC COMPONENTS
 src/components/calendar/edit-appointment.jsx
 src/components/patient/revert.jsx
 src/components/patient/stage.jsx
@@ -6,6 +6,9 @@ src/components/treatment/old-form.jsx
 src/components/treatment/stage.jsx
 src/components/comprised-stage.jsx
 
-// NPM
+# NPM
 node_modules
 package-lock.json
+
+# BUILD FILES
+.next/*

@@ -20,6 +20,8 @@ $primaryBtnBGColor: $bigBlueButton;
 $primaryBtnHoverColor: $bigBlueButton;
 $acceptBtnBGColor: $grassNeutralGreen;
 $rejectBtnBGColor: $pinkRed;
+$proceedBtnBGColor: $bigBlueButton;
+$proceedDisabledBtnBGColor: $smokeGrey;
 $navBarBGColor: $tomato;
 $inputBGColor: #F0F0F0;
 $bodyFontSize: 1.1em;
@@ -72,6 +74,7 @@ nav {
   position: absolute;
   top: 0;
   left: 0;
+  display: flex;
 
   img.logo {
     width: inherit; height: 7vh;
@@ -308,6 +311,19 @@ button.smaller {
   width: 6vw;
   height: 4vh;
 }
+button.proceed {
+  min-width: 3vw;
+  min-height: 4vh;
+  background-color: $proceedBtnBGColor;
+  color: white;
+  border: solid 1px black;
+  border-radius: 10px;
+
+  &.disabled {
+    background-color: $proceedDisabledBtnBGColor;
+    color: black;
+  }
+}
 div.scrollable {
   overflow-y: auto;
   width: 100%;
@@ -439,6 +455,10 @@ div.day-scrollable-container {
   overflow-y: auto;
   width: 98%;
   height: 80vh;
+
+  div.day-details {
+    text-align: center;
+  }
 }
 div.hour {
   text-align: left;
@@ -517,11 +537,14 @@ div.teeth-container {
     justify-content: space-between;
 
     div.teeth {
-      margin: 0.2vmin;
-      display: block;
+      margin: 0.25vmin;
+      display: flex;
       min-width: 2vw;
-      text-align: center;
+      min-height: 5vh;
+      justify-content: center;
+      align-items: center;
       border: solid 1px black;
+      border-radius: 1vmin;
 
       &.selected {
         background-color: $bigBlueButton !important;
