@@ -27,3 +27,25 @@ To install all packages and run the server, use the command:
 ```
 npm i && npm start
 ```
+
+### Running the client server
+For development and testing
+
+```
+npm i && npm run dev
+```
+
+To run the server first build it with
+```
+npm run build
+```
+
+and then
+```
+npm run start
+```
+
+## Sample Screenshots
+![image](./screenshots/Screenshot%202025-03-11%20at%2015.43.18.png)
+
+![image](./screenshots/Screenshot%202025-03-11%20at%2015.43.52.png)
